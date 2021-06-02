@@ -66,7 +66,7 @@
                   <button type="button" class="btn btn-warning" onclick="reset()">Reset Energy</button>
                 </div>
                 <br>
-                
+
                 <table id="myTable" border="1">
                   
                 </table>
@@ -79,6 +79,21 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
+      function reset(){
+        
+        $.ajax({
+          url: "/reset",
+          success: function(response){
+            location.reload();
+            console.log("success");
+            
+          },
+          error: function(xhr){
+            console.log("failed");
+          }
+        })
+      }
+
       function rekomendasi(){
         console.log("===============")
         $.getJSON('/recomendation_product',

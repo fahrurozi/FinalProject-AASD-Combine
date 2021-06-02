@@ -13,9 +13,11 @@ def add_energy_to_nama_node(nama_node_str):
         energy_dict1.get('Nama-' + nama_node_str, 0) + 1)
     return energy_dict1
 
-# @app.route('/reset')
-# def reset_all_energy():
-#     energy_dict1 = dict()
+@app.route('/reset')
+def reset_all_energy():
+    energy_dict1.clear()
+    from table_to_graph import list_product
+    return render_template('./index.html', product_name = list_product)
 
 
 @app.route('/recomendation_product')
