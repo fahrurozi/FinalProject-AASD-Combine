@@ -4,14 +4,18 @@ import operator
 
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
-energy_dict = dict()
+energy_dict1 = dict()
 
 
 @app.route('/add_energy/<nama_node_str>')
 def add_energy_to_nama_node(nama_node_str):
-    energy_dict['Nama-' + nama_node_str] = (
-        energy_dict.get('Nama-' + nama_node_str, 0) + 1)
-    return energy_dict
+    energy_dict1['Nama-' + nama_node_str] = (
+        energy_dict1.get('Nama-' + nama_node_str, 0) + 1)
+    return energy_dict1
+
+# @app.route('/reset')
+# def reset_all_energy():
+#     energy_dict1 = dict()
 
 
 @app.route('/recomendation_product')
@@ -19,6 +23,7 @@ def generate_recommendation_from_current_energy_state():
     initial_nodes = []
     traversed_nodes = set()
 
+    energy_dict = energy_dict1.copy()
     # Initial nodes
     for node in energy_dict:
         initial_nodes.append(node)

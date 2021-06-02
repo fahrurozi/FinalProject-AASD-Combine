@@ -58,8 +58,16 @@
             </div>
             <br><br><br>
             <div class="row">
-                <h1 style="align:center;" onclick="rekomendasi()">REKOMENDASI</h1>
-                <table id="myTable">
+                <h1 style="align:center;">REKOMENDASI</h1>
+                <div class="col-md-6">
+                  <button type="button" class="btn btn-primary"  onclick="rekomendasi()">Show Recomendation</button>
+                </div>
+                <div class="col-md-6">
+                  <button type="button" class="btn btn-warning" onclick="reset()">Reset Energy</button>
+                </div>
+                <br>
+                
+                <table id="myTable" border="1">
                   
                 </table>
             </div>
@@ -77,6 +85,7 @@
             function(hasil) {
           var rown = 0;
           var table = document.getElementById("myTable");
+          
           for (var key in hasil){
             var row = table.insertRow(rown);
             row.insertCell(0).innerHTML = key;
