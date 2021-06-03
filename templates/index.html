@@ -106,7 +106,7 @@
           
           for (var key in hasil){
             var row = table.insertRow(rown);
-            row.insertCell(0).innerHTML = key;
+            row.insertCell(0).innerHTML = key.slice(5);
             row.insertCell(1).innerHTML = hasil[key];
             rown += 1;
           }
