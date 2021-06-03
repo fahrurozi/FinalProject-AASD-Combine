@@ -1,6 +1,8 @@
 from flask import Flask, render_template, url_for
 from table_to_graph import graph_dict
+from queue import Queue
 import operator
+
 
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
@@ -22,19 +24,20 @@ def reset_all_energy():
 
 @app.route('/recomendation_product')
 def generate_recommendation_from_current_energy_state():
-    initial_nodes = []
+    # initial_nodes = []
+    initial_nodes = set()
+    bfs_queue = Queue()
     traversed_nodes = set()
 
     energy_dict = energy_dict1.copy()
     # Initial nodes
     for node in energy_dict:
-        initial_nodes.append(node)
-
-    bfs_queue = initial_nodes.copy()
+        initial_nodes.add(node)
+        bfs_queue.put(node)
 
     # Traverse each nodes
-    while len(bfs_queue) > 0:
-        current_node = bfs_queue.pop()
+    while bfs_queue.qsize() > 0:
+        current_node = bfs_queue.get()
         if current_node in traversed_nodes:
             continue
         current_energy = energy_dict[current_node]
@@ -42,7 +45,7 @@ def generate_recommendation_from_current_energy_state():
         adjacent_nodes = graph_dict[current_node]
         energy_to_be_shared = current_energy / len(adjacent_nodes)
         for node in adjacent_nodes:
-            bfs_queue.append(node)
+            bfs_queue.put(node)
             energy_dict[node] = energy_dict.get(node, 0) + energy_to_be_shared
 
         traversed_nodes.add(current_node)
